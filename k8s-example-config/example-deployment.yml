@@ -1,0 +1,29 @@
+apiVersion: example.com/v1
+kind: DevopsReplicaController
+metadata:
+  name: my-devopsreplicacontroller
+  namespace: default
+spec: 
+  selector:
+    matchLabels:
+      app: devopsagent
+  template:
+    metadata:
+      labels:
+        app: devopsagent
+    spec:
+      image: acradessodevopsagentsspeuw03.azurecr.io/devopsagent:latest
+      pullSecretName: acrsecret
+      config:
+        - name: name
+          value: devopsagent
+        - name: AZP_URL
+          value: "https://dev.azure.com/leonardpolz/" 
+        - name: AZP_POOL
+          value: "AksDevopsAgentAutoscalerPool" 
+        - name: AZP_WORK
+          value: "_work" 
+        - name: AZP_TOKEN_secret_name
+          value: "devops-pat"
+        - name: AZP_TOKEN_secret_key
+          value: "pat"
